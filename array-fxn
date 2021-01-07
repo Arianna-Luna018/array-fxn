@@ -1,0 +1,81 @@
+
+
+
+
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+void fillArray(int arr[][3]);
+void calcMagicNumber(int arr[][3], int& num);
+bool isArrayMagic(int arr[][3], int num);
+
+int main()
+{
+	int square[3][3];//filled with random numbers between 1 and 9 inclusive and tested if magic
+	int magicNum = 0;//calculated from the square and is the sum of all elements divided by 3 using integer math
+	int count = 0;//keeps count of how many magic squares occur
+
+	srand(time(0));
+
+	for (int i = 0; i < 10; i++)//repeat magic square calc how ever many times in i < statement
+	{
+		fillArray(square);
+		calcMagicNumber(square,magicNum);
+	}
+	return 0;
+}
+
+
+/*
+Function Name: fillArray
+author:
+date:
+Descrip:Loop through rows, columns, generate a random num, and store it in each element of array, one at a time
+0-set seed for rando num generator
+1-set up outer loop to cycle through columns by holding row constant
+2-set up inner loop to cycle through columns and pick random num to store in that array element
+
+var passed to function: 3x3 int array to be filled with rando num between 1 and 5 inclusive
+var returned to calling function: filled 3x3 int array
+*/
+void fillArray(int arr[][3])
+{
+	for(int i = 0; i < 3; i++)
+		for(int j = 0; j < 3; j++)
+			arr[i][j] = (rand() % 9) + 1;//generate a num between 1 and 9 inclusive, and store in array
+	//print out array to see if this is working, then delete this code once working
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+			cout << arr[i][j] << "  ";
+		cout << endl;
+	}
+	cout << endl;
+}
+
+/*
+Function Name: calcMagicNumber
+author:
+date:
+Descrip:Set num to 0 before using running sum.Then cycle through all array elements and add values to num.
+
+var passed to function: int array[][3], a 3x3 int array from which magic num is calc
+var returned to calling function: int num, an int rpe the sum of all elements of array divided by 3 using int math
+*/
+void calcMagicNumber(int arr[][3], int& num)
+{
+	num = 0;
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			num = num + arr[i][j];
+	num = num / 3;//int math being used (truncates)
+	//print magic num for this square, delete later after all debugging
+	cout << endl << "magic number is " << num << endl;
+}
+
+
